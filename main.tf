@@ -1,3 +1,7 @@
+provider "aws" {
+  region = "ap-southeast-2"  
+}
+
 data "aws_ami" "app_ami" {
   most_recent = true
 
@@ -14,9 +18,11 @@ data "aws_ami" "app_ami" {
   owners = ["979382823631"] # Bitnami
 }
 
+
 resource "aws_instance" "web" {
   ami           = data.aws_ami.app_ami.id
   instance_type = "t3.nano"
+  subnet_id     = "subnet-0f0614208926f397f" 
 
   tags = {
     Name = "HelloWorld"
